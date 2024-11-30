@@ -3,15 +3,15 @@ import sqlite3
 
 
 data = {
-    'Username':"u2",
-    'Password':'p2',
-    'DBPassword': 'dbp2',
-    'DBTag': 'dbt2'
+    'Username':'Affan',
+    'Password':'09876',
+    'DBPassword': 'yourord',
+    'DBTag': 'firstdatabae'
 }
 
-response = requests.post('http://localhost:8080/register', json=data)
+# response = requests.post('http://localhost:8080/register', json=data)
 
-print(response.json())
+# print(response.json())
 
 conn = sqlite3.connect("models/UserDB.db")
 cur = conn.cursor()
