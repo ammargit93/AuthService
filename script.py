@@ -1,22 +1,27 @@
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import requests
-import sqlite3
+
+app = Flask(__name__)
+
+app.secret_key = 'your_secret_key'
+
+GO_API_URL = 'http://localhost:8080' 
 
 
-data = {
-    'Username':'Affan',
-    'Password':'09876',
-    'DBPassword': 'yourord',
-    'DBTag': 'firstdatabae'
-}
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
 
-# response = requests.post('http://localhost:8080/register', json=data)
+        data = {
+            'Username': username,
+            'Password': password,
+            'DBTag': 'test_db', 
+            'DBPassword': 'securepassword123'
+        }
+        response = requests.post(f'{GO_API_URL}/login', json=data)
+        print(response.json()['token'])
+    return render_template("login.html")
 
-# print(response.json())
-
-conn = sqlite3.connect("models/UserDB.db")
-cur = conn.cursor()
-cur.execute("select * from Users")
-conn.commit()
-row = cur.fetchall()
-for r in row:
-    print(r)
+app.run(debug=True)
