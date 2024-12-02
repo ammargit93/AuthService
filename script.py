@@ -22,6 +22,13 @@ def login():
         }
         response = requests.post(f'{GO_API_URL}/login', json=data)
         print(response.json()['token'])
+        session['username'] = token
+        return redirect('/dashboard')
     return render_template("login.html")
+
+@app.route('/dashboard', methods=['GET','POST'])
+def dashboard():
+    
+
 
 app.run(debug=True)
